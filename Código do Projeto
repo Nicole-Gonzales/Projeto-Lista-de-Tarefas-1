@@ -1,0 +1,82 @@
+
+tarefas = []
+
+def gerenciar_tarefas():
+    while True:
+        print("\n==============================")
+        print("     GERENCIADOR DE TAREFAS   ")
+        print("==============================")
+        print("1. Adicionar Tarefa")
+        print("2. Listar Tarefas")
+        print("3. Marcar Tarefa como Concluída")
+        print("4. Excluir Tarefa")
+        print("5. Sair")
+        print("==============================")
+        
+        opcao = input("Escolha uma opção (1-5): ").strip()
+
+        if opcao == '1':
+            print("\n--- Adicionar Nova Tarefa ---")
+            titulo = input("Digite a descrição da tarefa: ").strip()
+            if titulo:
+                nova_tarefa = {"titulo": titulo, "concluida": False}
+                tarefas.append(nova_tarefa)
+                print(f"✅ Tarefa '{titulo}' adicionada com sucesso!")
+            else:
+                print("⚠️ A descrição não pode ser vazia.")
+
+        elif opcao == '2':
+            print("\n--- Lista de Tarefas ---")
+            if not tarefas:
+                print("📭 Nenhuma tarefa cadastrada ainda.")
+            else:
+                for indice, tarefa in enumerate(tarefas):
+                    status = "[X]" if tarefa["concluida"] else "[ ]"
+                    print(f"{indice + 1}. {status} {tarefa['titulo']}")
+
+        elif opcao == '3':
+            print("\n--- Concluir Tarefa ---")
+            if not tarefas:
+                print("📭 Nenhuma tarefa para concluir.")
+            else:
+                for indice, tarefa in enumerate(tarefas):
+                    status = "[X]" if tarefa["concluida"] else "[ ]"
+                    print(f"{indice + 1}. {status} {tarefa['titulo']}")
+                
+                try:
+                    num = int(input("Digite o número da tarefa que deseja concluir: "))
+                    if 1 <= num <= len(tarefas):
+                        tarefas[num - 1]["concluida"] = True
+                        print(f"✅ Tarefa '{tarefas[num - 1]['titulo']}' marcada como concluída!")
+                    else:
+                        print("⚠️ Número inválido.")
+                except ValueError:
+                    print("⚠️ Por favor, digite apenas números inteiros.")
+
+        elif opcao == '4':
+            print("\n--- Excluir Tarefa ---")
+            if not tarefas:
+                print("📭 Nenhuma tarefa para excluir.")
+            else:
+                for indice, tarefa in enumerate(tarefas):
+                    status = "[X]" if tarefa["concluida"] else "[ ]"
+                    print(f"{indice + 1}. {status} {tarefa['titulo']}")
+                
+                try:
+                    num = int(input("Digite o número da tarefa que deseja excluir: "))
+                    if 1 <= num <= len(tarefas):
+                        tarefa_removida = tarefas.pop(num - 1)
+                        print(f"🗑️ Tarefa '{tarefa_removida['titulo']}' removida com sucesso!")
+                    else:
+                        print("⚠️ Número inválido.")
+                except ValueError:
+                    print("⚠️ Por favor, digite apenas números inteiros.")
+
+        elif opcao == '5':
+            print("\n👋 Saindo do Gerenciador de Tarefas. Até logo!")
+            break
+        else:
+            print("\n⚠️ Opção inválida! Escolha um número entre 1 e 5.")
+
+
+gerenciar_tarefas()
